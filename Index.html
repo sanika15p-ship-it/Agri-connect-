@@ -1,0 +1,744 @@
+# Agri-connect-
+Sell or buy agricultural products 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AgriConnect</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f3f8f2;
+    color: #222;
+}
+
+header {
+    background: #2e7d32;
+    color: white;
+    text-align: center;
+    padding: 25px;
+}
+
+header h1 {
+    font-size: 32px;
+}
+
+header p {
+    margin-top: 8px;
+}
+
+nav {
+    background: #1b5e20;
+    padding: 15px;
+    text-align: center;
+}
+
+nav button {
+    background: transparent;
+    color: white;
+    border: none;
+    margin: 5px 10px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.container {
+    max-width: 950px;
+    margin: 25px auto;
+    padding: 15px;
+}
+
+.page {
+    display: none;
+}
+
+.active {
+    display: block;
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+h2 {
+    color: #2e7d32;
+    margin-bottom: 15px;
+}
+
+h3 {
+    color: #388e3c;
+    margin-bottom: 10px;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+textarea {
+    height: 90px;
+}
+
+.btn {
+    background: #2e7d32;
+    color: white;
+    border: none;
+    padding: 12px 22px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: #1b5e20;
+}
+
+.yellow {
+    background: #f9a825;
+}
+
+.red {
+    background: #c62828;
+}
+
+.home-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 25px;
+}
+
+.home-buttons button {
+    padding: 18px 35px;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    font-size: 17px;
+}
+
+.have-btn {
+    background: #388e3c;
+}
+
+.need-btn {
+    background: #f9a825;
+}
+
+.product {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-top: 15px;
+    border-radius: 8px;
+    background: #fafafa;
+}
+
+.product img {
+    width: 150px;
+    max-height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.match {
+    background: #e8f5e9;
+    border-left: 5px solid #2e7d32;
+    padding: 15px;
+    margin-top: 15px;
+    border-radius: 6px;
+}
+
+footer {
+    background: #1b5e20;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+}
+
+@media(max-width:600px) {
+    header h1 {
+        font-size: 26px;
+    }
+
+    .container {
+        padding: 10px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🌱 AgriConnect</h1>
+    <p>Agricultural Product Marketplace</p>
+</header>
+
+<nav>
+    <button onclick="showPage('home')">Home</button>
+    <button onclick="showPage('login')">Login</button>
+    <button onclick="showPage('register')">Register</button>
+    <button onclick="showPage('have')">I Have</button>
+    <button onclick="showPage('need')">I Need</button>
+    <button onclick="showPage('matches')">Matches</button>
+    <button onclick="showPage('profile')">Profile</button>
+</nav>
+
+<div class="container">
+
+<!-- HOME -->
+<div id="home" class="page active">
+
+    <div class="card" style="text-align:center;">
+        <h2>Welcome to AgriConnect 🌾</h2>
+
+        <p>
+            Connect agricultural products with people who need them.
+        </p>
+
+        <div class="home-buttons">
+            <button class="have-btn"
+                    onclick="showPage('have')">
+                📦 I Have
+            </button>
+
+            <button class="need-btn"
+                    onclick="showPage('need')">
+                🔎 I Need
+            </button>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>How It Works</h2>
+
+        <h3>1. Register</h3>
+        <p>Create your account with your basic details.</p>
+        <br>
+
+        <h3>2. Add Products</h3>
+        <p>Add products you have or products you need.</p>
+        <br>
+
+        <h3>3. Find Matches</h3>
+        <p>AgriConnect shows products matching your requirements.</p>
+    </div>
+
+</div>
+
+
+<!-- REGISTER -->
+<div id="register" class="page">
+
+    <div class="card">
+
+        <h2>👤 Create Account</h2>
+
+        <label>Full Name</label>
+        <input type="text" id="regName"
+               placeholder="Enter your name">
+
+        <label>Mobile Number</label>
+        <input type="tel" id="regPhone"
+               placeholder="Enter mobile number">
+
+        <label>Location</label>
+        <input type="text" id="regLocation"
+               placeholder="Village / City">
+
+        <label>Password</label>
+        <input type="password" id="regPassword"
+               placeholder="Create password">
+
+        <button class="btn" onclick="register()">
+            Register
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- LOGIN -->
+<div id="login" class="page">
+
+    <div class="card">
+
+        <h2>🔐 Login</h2>
+
+        <label>Mobile Number</label>
+        <input type="tel" id="loginPhone"
+               placeholder="Enter mobile number">
+
+        <label>Password</label>
+        <input type="password" id="loginPassword"
+               placeholder="Enter password">
+
+        <button class="btn" onclick="login()">
+            Login
+        </button>
+
+        <p id="loginMessage" style="margin-top:15px;"></p>
+
+    </div>
+
+</div>
+
+
+<!-- I HAVE -->
+<div id="have" class="page">
+
+    <div class="card">
+
+        <h2>📦 I Have</h2>
+
+        <p>Add the agricultural product you have.</p>
+
+        <label>Product Name</label>
+        <input type="text" id="haveName"
+               placeholder="Example: Wheat">
+
+        <label>Quantity</label>
+        <input type="text" id="haveQuantity"
+               placeholder="Example: 50 kg">
+
+        <label>Price</label>
+        <input type="number" id="havePrice"
+               placeholder="Price per unit">
+
+        <label>Location</label>
+        <input type="text" id="haveLocation"
+               placeholder="Village / City">
+
+        <label>Product Photo</label>
+        <input type="file" id="havePhoto"
+               accept="image/*">
+
+        <label>Additional Details</label>
+        <textarea id="haveDetails"
+                  placeholder="Write product details"></textarea>
+
+        <button class="btn" onclick="addHaveProduct()">
+            Add Product
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- I NEED -->
+<div id="need" class="page">
+
+    <div class="card">
+
+        <h2>🔎 I Need</h2>
+
+        <p>Add the agricultural product you are looking for.</p>
+
+        <label>Product Name</label>
+        <input type="text" id="needName"
+               placeholder="Example: Wheat">
+
+        <label>Required Quantity</label>
+        <input type="text" id="needQuantity"
+               placeholder="Example: 100 kg">
+
+        <label>Expected Price</label>
+        <input type="number" id="needPrice"
+               placeholder="Expected price">
+
+        <label>Location</label>
+        <input type="text" id="needLocation"
+               placeholder="Village / City">
+
+        <label>Additional Details</label>
+        <textarea id="needDetails"
+                  placeholder="Write your requirements"></textarea>
+
+        <button class="btn yellow"
+                onclick="addNeedProduct()">
+            Add Requirement
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- MATCHES -->
+<div id="matches" class="page">
+
+    <div class="card">
+
+        <h2>🤝 Matching Products</h2>
+
+        <p>
+            Products matching your requirements will appear here.
+        </p>
+
+        <div id="matchList"></div>
+
+    </div>
+
+</div>
+
+
+<!-- PROFILE -->
+<div id="profile" class="page">
+
+    <div class="card">
+
+        <h2>👤 My Profile</h2>
+
+        <div id="profileData">
+            Please register first.
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+
+<footer>
+    <p>© 2026 AgriConnect | Connecting Agriculture</p>
+</footer>
+
+
+<script>
+
+let haveProducts =
+    JSON.parse(localStorage.getItem("haveProducts")) || [];
+
+let needProducts =
+    JSON.parse(localStorage.getItem("needProducts")) || [];
+
+
+/* PAGE NAVIGATION */
+
+function showPage(pageId) {
+
+    let pages = document.querySelectorAll(".page");
+
+    pages.forEach(function(page) {
+        page.classList.remove("active");
+    });
+
+    document.getElementById(pageId).classList.add("active");
+
+    if(pageId === "matches") {
+        showMatches();
+    }
+
+    if(pageId === "profile") {
+        showProfile();
+    }
+
+    window.scrollTo(0, 0);
+}
+
+
+/* REGISTER */
+
+function register() {
+
+    let name =
+        document.getElementById("regName").value;
+
+    let phone =
+        document.getElementById("regPhone").value;
+
+    let location =
+        document.getElementById("regLocation").value;
+
+    let password =
+        document.getElementById("regPassword").value;
+
+    if(name === "" || phone === "" ||
+       location === "" || password === "") {
+
+        alert("Please fill all details.");
+        return;
+    }
+
+    let user = {
+        name: name,
+        phone: phone,
+        location: location,
+        password: password
+    };
+
+    localStorage.setItem(
+        "user",
+        JSON.stringify(user)
+    );
+
+    alert("Registration successful!");
+
+    showPage("login");
+}
+
+
+/* LOGIN */
+
+function login() {
+
+    let phone =
+        document.getElementById("loginPhone").value;
+
+    let password =
+        document.getElementById("loginPassword").value;
+
+    let user =
+        JSON.parse(localStorage.getItem("user"));
+
+    if(!user) {
+        alert("Please register first.");
+        return;
+    }
+
+    if(phone === user.phone &&
+       password === user.password) {
+
+        alert("Login successful!");
+
+        showPage("home");
+
+    } else {
+
+        document.getElementById("loginMessage")
+        .innerText =
+        "Invalid mobile number or password.";
+
+    }
+}
+
+
+/* ADD I HAVE PRODUCT */
+
+function addHaveProduct() {
+
+    let name =
+        document.getElementById("haveName").value;
+
+    let quantity =
+        document.getElementById("haveQuantity").value;
+
+    let price =
+        document.getElementById("havePrice").value;
+
+    let location =
+        document.getElementById("haveLocation").value;
+
+    let details =
+        document.getElementById("haveDetails").value;
+
+    if(name === "" ||
+       quantity === "" ||
+       location === "") {
+
+        alert("Please fill product name, quantity and location.");
+        return;
+    }
+
+    let product = {
+        name: name.toLowerCase(),
+        quantity: quantity,
+        price: price,
+        location: location.toLowerCase(),
+        details: details
+    };
+
+    haveProducts.push(product);
+
+    localStorage.setItem(
+        "haveProducts",
+        JSON.stringify(haveProducts)
+    );
+
+    alert("Product added successfully!");
+
+    document.getElementById("haveName").value = "";
+    document.getElementById("haveQuantity").value = "";
+    document.getElementById("havePrice").value = "";
+    document.getElementById("haveLocation").value = "";
+    document.getElementById("haveDetails").value = "";
+
+    showPage("matches");
+}
+
+
+/* ADD I NEED */
+
+function addNeedProduct() {
+
+    let name =
+        document.getElementById("needName").value;
+
+    let quantity =
+        document.getElementById("needQuantity").value;
+
+    let price =
+        document.getElementById("needPrice").value;
+
+    let location =
+        document.getElementById("needLocation").value;
+
+    let details =
+        document.getElementById("needDetails").value;
+
+    if(name === "" ||
+       quantity === "" ||
+       location === "") {
+
+        alert("Please fill product name, quantity and location.");
+        return;
+    }
+
+    let requirement = {
+        name: name.toLowerCase(),
+        quantity: quantity,
+        price: price,
+        location: location.toLowerCase(),
+        details: details
+    };
+
+    needProducts.push(requirement);
+
+    localStorage.setItem(
+        "needProducts",
+        JSON.stringify(needProducts)
+    );
+
+    alert("Requirement added successfully!");
+
+    document.getElementById("needName").value = "";
+    document.getElementById("needQuantity").value = "";
+    document.getElementById("needPrice").value = "";
+    document.getElementById("needLocation").value = "";
+    document.getElementById("needDetails").value = "";
+
+    showPage("matches");
+}
+
+
+/* MATCHING SYSTEM */
+
+function showMatches() {
+
+    let matchList =
+        document.getElementById("matchList");
+
+    matchList.innerHTML = "";
+
+    let found = false;
+
+    needProducts.forEach(function(need) {
+
+        haveProducts.forEach(function(have) {
+
+            if(have.name === need.name) {
+
+                found = true;
+
+                matchList.innerHTML += `
+
+                    <div class="match">
+
+                        <h3>✅ Match Found!</h3>
+
+                        <p>
+                            <b>Product:</b>
+                            ${have.name}
+                        </p>
+
+                        <p>
+                            <b>Available Quantity:</b>
+                            ${have.quantity}
+                        </p>
+
+                        <p>
+                            <b>Price:</b>
+                            ₹${have.price}
+                        </p>
+
+                        <p>
+                            <b>Location:</b>
+                            ${have.location}
+                        </p>
+
+                        <p>
+                            <b>Your Requirement:</b>
+                            ${need.quantity}
+                        </p>
+
+                    </div>
+                `;
+            }
+
+        });
+
+    });
+
+    if(!found) {
+
+        matchList.innerHTML =
+        "<p>No matching products found yet.</p>";
+
+    }
+}
+
+
+/* PROFILE */
+
+function showProfile() {
+
+    let user =
+        JSON.parse(localStorage.getItem("user"));
+
+    let profile =
+        document.getElementById("profileData");
+
+    if(!user) {
+
+        profile.innerHTML =
+        "<p>Please register first.</p>";
+
+        return;
+    }
+
+    profile.innerHTML = `
+
+        <p><b>Name:</b> ${user.name}</p>
+
+        <p><b>Mobile:</b> ${user.phone}</p>
+
+        <p><b>Location:</b> ${user.location}</p>
+
+    `;
+}
+
+</script>
+
+</body>
+      </html>
